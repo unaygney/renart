@@ -1,5 +1,6 @@
 import { db } from '../db'
 import { product } from '../db/schema/product'
+import { applyFilters } from '../lib/filters'
 import { fetchGoldPrice } from '../lib/gold'
 import { calculateProductPrice } from '../lib/pricing'
 import { publicProcedure, router } from '../lib/trpc'
@@ -7,7 +8,7 @@ import { eq } from 'drizzle-orm'
 import z from 'zod'
 
 export const productRouter = router({
-  getAll: publicProcedure.query(async () => {
+  getAll: publicProcedure.query(async ({ ctx }) => {
     try {
       const products = await db.select().from(product)
 
@@ -22,7 +23,9 @@ export const productRouter = router({
         ),
       }))
 
-      return productsWithPrices
+      const filteredProducts = applyFilters(productsWithPrices, ctx)
+
+      return filteredProducts
     } catch (error) {
       console.error('Error fetching products:', error)
       throw new Error('Failed to fetch products')
