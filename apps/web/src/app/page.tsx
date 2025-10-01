@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query'
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
 import { useState } from 'react'
 
+import { getRating } from '@/lib/utils'
+
 import { Button } from '@/components/ui/button'
 
 import { trpc } from '@/utils/trpc'
@@ -24,11 +26,6 @@ export default function Home() {
 
   const prevProduct = () => {
     setCurrentIndex((prev) => (prev - 1 + products.length) % products.length)
-  }
-
-  const getRating = (popularityScore: number) => {
-    // Convert popularity score to 1-5 rating
-    return Math.min(5, Math.max(1, Math.round(popularityScore * 2)))
   }
 
   const getRatingStars = (rating: number) => {
