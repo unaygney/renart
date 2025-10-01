@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${avenir.variable} ${montserrat.variable} antialiased`}>
         <Providers>
-          <div className="grid grid-rows-[auto_1fr] h-svh">{children}</div>
+          <div className=" h-svh">{children}</div>
         </Providers>
       </body>
     </html>

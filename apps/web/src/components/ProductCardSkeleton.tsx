@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export function ProductCardSkeleton() {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 flex flex-col items-center space-y-3 sm:space-y-4 w-full max-w-sm mx-auto">
+    <div className="bg-white rounded-lg  p-4 sm:p-6 flex flex-col items-center space-y-3 sm:space-y-4 w-full max-w-sm mx-auto">
       {/* Product Image Skeleton */}
       <div className="w-40 h-40 sm:w-48 sm:h-48 bg-gray-200 rounded-lg animate-pulse" />
 
