@@ -9,25 +9,28 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx scripts/seed.ts"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "@trpc/client": "^11.5.0",
+    "@trpc/server": "^11.5.0",
+    "dotenv": "^17.2.1",
+    "drizzle-orm": "^0.44.2",
+    "drizzle-seed": "^0.3.1",
     "next": "15.5.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "dotenv": "^17.2.1",
-    "@trpc/server": "^11.5.0",
-    "@trpc/client": "^11.5.0",
-    "drizzle-orm": "^0.44.2",
-    "@neondatabase/serverless": "^1.0.1",
     "ws": "^8.18.3"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "~19.1.10",
-    "zod": "^4.0.13",
-    "typescript": "^5",
+    "@types/ws": "^8.18.1",
     "drizzle-kit": "^0.31.2",
-    "@types/ws": "^8.18.1"
+    "tsx": "^4.7.0",
+    "typescript": "^5",
+    "zod": "^4.0.13"
   }
 }
