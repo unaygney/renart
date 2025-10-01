@@ -7,7 +7,12 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**"],
-      "env": ["DATABASE_URL", "DATABASE_URL_POOLER", "CORS_ORIGIN"]
+      "env": [
+        "DATABASE_URL",
+        "DATABASE_URL_POOLER",
+        "CORS_ORIGIN",
+        "GOLD_API_KEY"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
