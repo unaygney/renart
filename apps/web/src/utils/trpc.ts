@@ -23,6 +23,21 @@ const trpcClient = createTRPCClient<AppRouter>({
   links: [
     httpBatchLink({
       url: `${process.env.NEXT_PUBLIC_SERVER_URL}/trpc`,
+      fetch(url, options) {
+        // Append current URL search params to the tRPC request
+        if (typeof window !== 'undefined') {
+          const searchParams = new URLSearchParams(window.location.search)
+          if (searchParams.toString()) {
+            const urlString = typeof url === 'string' ? url : url.toString()
+            const urlObj = new URL(urlString)
+            searchParams.forEach((value, key) => {
+              urlObj.searchParams.set(key, value)
+            })
+            return fetch(urlObj.toString(), options)
+          }
+        }
+        return fetch(url, options)
+      },
     }),
   ],
 })
