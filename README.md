@@ -101,6 +101,42 @@ pnpm db:migrate
 pnpm db:studio
 ```
 
+## Deployed URLs
+
+### Production
+
+- **Web App**: [https://renart-web.vercel.app](https://renart-web.vercel.app)
+- **Server API**:
+  [https://renart-server.vercel.app](https://renart-server.vercel.app)
+- **Products Endpoint**:
+  [https://renart-server.vercel.app/trpc/product.getAll](https://renart-server.vercel.app/trpc/product.getAll)
+
+### API Examples
+
+**Get all products:**
+
+```
+https://renart-server.vercel.app/trpc/product.getAll
+```
+
+**Filter by price range:**
+
+```
+https://renart-server.vercel.app/trpc/product.getAll?priceMin=500&priceMax=1000
+```
+
+**Filter by popularity:**
+
+```
+https://renart-server.vercel.app/trpc/product.getAll?popularityMin=0.8&popularityMax=1.0
+```
+
+**Combine multiple filters:**
+
+```
+https://renart-server.vercel.app/trpc/product.getAll?priceMin=600&priceMax=900&popularityMin=0.85
+```
+
 ## Features
 
 - 🔒 **Type-safe API** - Full end-to-end type safety with tRPC
@@ -108,3 +144,4 @@ pnpm db:studio
 - ⚡ **Fast Development** - Turbopack for lightning-fast builds
 - 🗄️ **Serverless Database** - Neon Postgres with connection pooling
 - 🎯 **Monorepo** - Turborepo for efficient workspace management
+- 🔍 **Product Filtering** - Advanced filtering by price and popularity
