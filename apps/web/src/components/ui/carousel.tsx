@@ -184,17 +184,22 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        'absolute size-8 rounded-full',
+        'absolute rounded-full touch-manipulation',
+        // Mobile: smaller, positioned inside carousel
+        'h-8 w-8 sm:h-8 sm:w-8',
         orientation === 'horizontal'
           ? 'top-1/2 -left-12 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
+        // Mobile-specific styles when positioned inside
+        'sm:shadow-md sm:border-gray-200',
         className
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
+      style={{ touchAction: 'manipulation' }}
       {...props}
     >
-      <ArrowLeft />
+      <ArrowLeft className="h-4 w-4" />
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -214,17 +219,22 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        'absolute size-8 rounded-full',
+        'absolute rounded-full touch-manipulation',
+        // Mobile: smaller, positioned inside carousel
+        'h-8 w-8 sm:h-8 sm:w-8',
         orientation === 'horizontal'
           ? 'top-1/2 -right-12 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
+        // Mobile-specific styles when positioned inside
+        'sm:shadow-md sm:border-gray-200',
         className
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
+      style={{ touchAction: 'manipulation' }}
       {...props}
     >
-      <ArrowRight />
+      <ArrowRight className="h-4 w-4" />
       <span className="sr-only">Next slide</span>
     </Button>
   )
