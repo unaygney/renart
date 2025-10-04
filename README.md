@@ -65,6 +65,9 @@ DATABASE_URL_POOLER=your_pooler_url
 CORS_ORIGIN=http://localhost:3001
 ```
 
+> **Note:** You can create your own [Neon](https://neon.tech) database or I can
+> share the database URL used in the project if you want.
+
 Create a `.env.local` file in `apps/web/`:
 
 ```env
