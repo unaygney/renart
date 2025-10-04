@@ -32,6 +32,37 @@ export const productRouter = router({
     }
   }),
 
+  getPriceRange: publicProcedure.query(async () => {
+    try {
+      const products = await db.select().from(product)
+
+      const goldPrice = await fetchGoldPrice()
+
+      const prices = products.map((productItem) =>
+        calculateProductPrice(
+          productItem.popularityScore,
+          productItem.weight,
+          goldPrice
+        )
+      )
+
+      if (prices.length === 0) {
+        return { min: 0, max: 1000 }
+      }
+
+      const minPrice = Math.min(...prices)
+      const maxPrice = Math.max(...prices)
+
+      return {
+        min: Math.floor(minPrice / 100) * 100,
+        max: Math.ceil(maxPrice / 100) * 100,
+      }
+    } catch (error) {
+      console.error('Error fetching price range:', error)
+      throw new Error('Failed to fetch price range')
+    }
+  }),
+
   get: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
