@@ -2,11 +2,13 @@
 
 import { type Product } from '../../../server/src/db/schema/product'
 import { useQuery } from '@tanstack/react-query'
+import { useCallback, useEffect, useState } from 'react'
 
 import { ProductCard } from '@/components/ProductCard'
 import { ProductCardSkeleton } from '@/components/ProductCardSkeleton'
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -21,6 +23,27 @@ export default function Home() {
   const { data: products = [], isLoading } = useQuery(
     trpc.product.getAll.queryOptions()
   )
+  const [api, setApi] = useState<CarouselApi>()
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  const onScroll = useCallback((api: CarouselApi) => {
+    if (!api) return
+
+    const progress = Math.max(0, Math.min(1, api.scrollProgress()))
+    setScrollProgress(progress * 100)
+  }, [])
+
+  useEffect(() => {
+    if (!api) return
+
+    onScroll(api)
+    api.on('scroll', () => onScroll(api))
+    api.on('reInit', () => onScroll(api))
+
+    return () => {
+      api?.off('scroll', () => onScroll(api))
+    }
+  }, [api, onScroll])
 
   if (isLoading) {
     return (
@@ -62,8 +85,16 @@ export default function Home() {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <div className="mt-8"></div>
             </Carousel>
+            {/* Custom Scrollbar */}
+            <div className="mt-8 px-2 md:px-4">
+              <div className="relative h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="absolute top-0 left-0 h-full bg-gray-400 rounded-full transition-all duration-200 ease-out"
+                  style={{ width: '25%' }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -91,6 +122,7 @@ export default function Home() {
         {/* Carousel */}
         <div className="relative">
           <Carousel
+            setApi={setApi}
             opts={{
               align: 'start',
               loop: false,
@@ -113,6 +145,15 @@ export default function Home() {
             <CarouselPrevious className="hidden sm:flex -left-12" />
             <CarouselNext className="hidden sm:flex -right-12" />
           </Carousel>
+          {/* Custom Scrollbar */}
+          <div className="mt-8 px-2 md:px-4">
+            <div className="relative h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+              <div
+                className="absolute top-0 left-0 h-full bg-gray-400 rounded-full transition-all duration-200 ease-out"
+                style={{ width: `${scrollProgress}%` }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
